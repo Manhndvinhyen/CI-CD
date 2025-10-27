@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: music-web
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: music-web
+  template:
+    metadata:
+      labels:
+        app: music-web
+    spec:
+      containers:
+      - name: music-web
+        image: manhnguyenducvinhyen/k8s-music:v1.0.0
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          value: "mysql"
+        - name: DB_NAME
+          value: "musicdb"
+        - name: DB_USER
+          value: "root"
+        - name: DB_PASS
+          value: "rootpass"

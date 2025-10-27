@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: music-web
+  labels:
+    app: music-web
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: music-web
+  template:
+    metadata:
+      labels:
+        app: music-web
+    spec:
+      containers:
+      - name: music-web
+        image: manhnguyenducvinhyen/k8s-music:v1.0.0
+        imagePullPolicy: IfNotPresent
+        ports:
+        - containerPort: 8080
+        env:
+        - name: DB_HOST
+          value: "mysql"
+        - name: DB_NAME
+          value: "musicdb"
+        - name: DB_USER
+          value: "root"
+        - name: DB_PASS
+          value: "rootpass"
+        livenessProbe:
+          httpGet:
+            path: /actuator/health/liveness
+            port: 8080
+          initialDelaySeconds: 10
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /actuator/health/readiness
+            port: 8080
+          initialDelaySeconds: 5
+          periodSeconds: 10
+        volumeMounts:
+        - name: config-volume
+          mountPath: /workspace/config
+      volumes:
+      - name: config-volume
+        configMap:
+          name: music-web-config
