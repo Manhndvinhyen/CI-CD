@@ -7,6 +7,8 @@ WORKDIR /app
 # Sao chép package.json và package-lock.json trước để cache deps
 COPY package*.json ./
 
+RUN npm ci --only=production
+
 # Cài đặt dependencies từ package.json (bao gồm express)
 RUN npm install
 
