@@ -18,7 +18,7 @@ spec:
       - name: backend
         image: ghcr.io/manhndvinhyen/ci-cd:latest  # Thay bằng image thật từ CI
         ports:
-        - containerPort: 3000  # Port của server.js (thay nếu khác)
+        - containerPort: 8081  # Port của server.js (thay nếu khác)
         envFrom:
         - configMapRef:
             name: app-config  # Reference configmap
