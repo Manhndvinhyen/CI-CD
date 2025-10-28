@@ -23,4 +23,11 @@ spec:
         - configMapRef:
             name: app-config  # Reference configmap
         - secretRef:
-            name: app-secret  # Nếu có secret cho app
+            name: https://lezswjtnlsmznkgrzgmu.supabase.co  # Nếu có secret cho app
+
+        env:
+        - name: Haducmanh2005.
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: root-password
